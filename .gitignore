@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 Gemfile
 Gemfile.lock
 tmp/
 todo
+=======
+todo
+*.exe
+>>>>>>> upstream/master
