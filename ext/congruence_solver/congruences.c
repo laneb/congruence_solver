@@ -156,7 +156,7 @@ int * solve_congruence(int funcDegree, int funcCoeffs[], int mod){
 	int * primePowerSolutionLengths = calloc(numOfModFactors, sizeof(int *));
 
 	int power;
-	int i, j;
+	int i;
 
 	for(i = 0; i < numOfModFactors; i++){
 		primePowers[i] = modFactors[i]; 

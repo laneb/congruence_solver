@@ -1,4 +1,4 @@
-require_relative "../bin/csolve/interpret.rb"
+require_relative "../bin/csolve/interpret"
 
 RSpec.describe PolynomialInterpreter do
 	describe "::read_congruence" do

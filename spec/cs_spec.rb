@@ -9,6 +9,7 @@ RSpec.describe CongruenceSolver do
 			expect {CongruenceSolver.solve_congruence([1], [1], nil)}.to raise_error ArgumentError
 		end
 
+
 		it "solves individual polynomial congruences defined by their coefficients and mod" do
 			coeffs = [-1, 0, 4]
 			mod = 5

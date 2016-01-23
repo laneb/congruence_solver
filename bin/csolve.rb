@@ -1,15 +1,16 @@
 #!/usr/bin/env ruby
 require 'congruence_solver'
-require_relative "csolve/interpret.rb"
+require_relative "csolve/interpret"
 
+puts "Congruence to solve:"
 
-coeffs, mod = std_congruence(gets)
+coeffs, mod = PolynomialInterpreter.read_congruence(STDIN.gets)
 
-CongruenceSolver.solve_congruence
+solutions = CongruenceSolver.solve_congruence(coeffs, mod).sort
 
-=begin
-coeffs.zip(exponents).inject(String.new) do |coeff, exp, str| 
-	str += "#{coeff}x"
-	str += "\^#{exp}" unless(exp.nil?)
+if solutions.empty? 
+	puts "No solution."
+else
+	puts "Solutions:"
+	solutions.each_with_index {|sol, i| puts "(#{i}) #{sol}"}
 end
-=end
