@@ -25,7 +25,7 @@ int chinese_remainder_solution(int numberOfEquations, int scals[], int mods[]){
 }
 
 
-static int * brute_force_congruence(int degree, int coeffs[], int primeMod){
+int * brute_force_congruence(int degree, int coeffs[], int primeMod){
 	//assumes a prime modulus. split congruences of composite modulus into systems of congrueneces
 	//of prime modulus and/or apply the lifting theorem to make use of this function
 	//solve a0x^n + a1x^n-1... = 0 (mod mod) where n is the order a0, a1, ... are coeffieicients

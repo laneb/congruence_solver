@@ -35,7 +35,7 @@ rescue ArgumentError => e
 	end
 end
 
-solutions = CongruenceSolver.solve_congruence(coeffs, mod).sort
+solutions = CongruenceSolver.lift(coeffs, mod).sort
 
 if solutions.empty? 
 	puts "No solution."

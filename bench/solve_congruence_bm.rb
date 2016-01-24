@@ -19,12 +19,14 @@ end
 
 SMALL_DEG_POLYNOMIAL_COEFFS = [1, -4, 4] 
 LARGE_DEG_POLYNOMIAL_COEFFS = [-11, 0, 0, 3, 0, 0, 0, 0, 0, 10]
-SMALL_PRIME_MOD = 49
-MED_PRIME_MOD = 5104
-LARGE_PRIME_MOD = 94122
+SMALL_MOD = 49
+MED_MOD = 5104
+LARGE_MOD = 94122
+XTRA_LARGE_MOD = 214092
+SMALL_FACTORED_LARGE_MOD = 510510
 
 [SMALL_DEG_POLYNOMIAL_COEFFS, LARGE_DEG_POLYNOMIAL_COEFFS].each do |coeffs|
-	[SMALL_PRIME_MOD, MED_PRIME_MOD, LARGE_PRIME_MOD].each do |mod|
+	[SMALL_MOD, MED_MOD, LARGE_MOD, XTRA_LARGE_MOD, SMALL_FACTORED_LARGE_MOD].each do |mod|
 		polynomial = ""
 		is_first_term = true
 
@@ -41,7 +43,7 @@ LARGE_PRIME_MOD = 94122
 					end
 				end
 
-				if coe.abs > 1
+				if coe.abs > 1 or coe.abs == 1 and exp < 2
 					polynomial << coe.abs.to_s
 				end
 
@@ -56,22 +58,31 @@ LARGE_PRIME_MOD = 94122
 
 		puts "Solving #{polynomial} = 0 mod #{mod}"
 
-		bf_solutions = solve_congruence_brute_force(coeffs, mod).sort
-		c_solutions = CongruenceSolver.solve_congruence(coeffs, mod).sort
+		rb_bf_solutions = solve_congruence_brute_force(coeffs, mod).sort
+		c_bf_solutions = CongruenceSolver.brute_force(coeffs, mod).sort
+		c_lifting_solutions = CongruenceSolver.lift(coeffs, mod).sort
 
-		if bf_solutions != c_solutions
-			puts "Solutions of brute force method (Ruby) and lifting method (C) don't match."
+		if rb_bf_solutions != c_bf_solutions
+			puts "Solutions of brute force method (Ruby) and brute force method (C) don't match."
+		end
+
+		if c_bf_solutions != c_lifting_solutions
+			puts "Solutions of brute force method (C) and lifting method (C) don't match."
 		end
 
 		puts "Time measurements:"
 
 		Benchmark.bmbm do |bm|
-			rb_time = bm.report("Ruby/force") do
+			bm.report("Ruby/force (x1)") do
 				solve_congruence_brute_force(coeffs, mod)
 			end
 
-			c_time = bm.report("C/lifting") do
-				CongruenceSolver.solve_congruence(coeffs, mod)
+			bm.report("C/force (x1000)") do
+				1000.times {CongruenceSolver.brute_force(coeffs, mod)}
+			end
+
+			bm.report("C/lifting (x1000)") do
+				1000.times {CongruenceSolver.lift(coeffs, mod)}
 			end
 		end
 

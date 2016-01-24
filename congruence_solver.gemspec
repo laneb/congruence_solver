@@ -9,8 +9,10 @@ Gem::Specification.new do |spec|
   spec.authors       = ["lane"]
   spec.email         = ["lane.barlow@gmail.com"]
 
-  spec.summary       = %q{TODO: Write a short summary, because Rubygems requires one.}
-  spec.description   = %q{TODO: Write a longer description or delete this line.}
+  spec.summary       = %q{A gem for solving polynomial congruences.}
+  spec.description   = %q{Provides a class (CongruenceSolver) for finding the modular zeros of a 
+                          polynomial (given the coefficients and modulus) and a binary (csolve) to 
+                          to solve your congruences at the command line.}
   spec.homepage      = "TODO: Put your gem's website or public repo URL here."
 
   # Prevent pushing this gem to RubyGems.org by setting 'allowed_push_host', or
