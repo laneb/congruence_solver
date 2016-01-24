@@ -2,10 +2,11 @@
 class PolynomialInterpreter
 	BLANK_POLYNOMIAL_MSG = "polynomial blank"
 	INVALID_POLYNOMIAL_MSG = "polynomial invalid"
+	INVALID_MOD_MSG = "mod invalid"
+	NON_POSITIVE_MOD_MSG = "mod not positive"
 
 	def self.read_congruence(input_congruence)
-		input_congruence = input_congruence.gsub(" ", "")
-		match_data = input_congruence.match(/^(.*)=(.*)(?:mod(\d+)|\(mod(\d+)\))$/)
+		match_data = input_congruence.match(/^(.*)=(.*) +(?:mod +(.*)|\(mod +(.*)\))$/)
 
 		if match_data.nil? then raise ArgumentError, "not a congruence" end
 
@@ -14,7 +15,7 @@ class PolynomialInterpreter
 		mod = match_data[3] || match_data[4]
 
 		begin
-			lh_coeffs = read_coeffs(lhs)
+			lh_coeffs = read_coeffs(lhs.gsub(" ", ""))
 		rescue ArgumentError => e
 			if e.message == BLANK_POLYNOMIAL_MSG
 				raise ArgumentError, "LHS #{BLANK_POLYNOMIAL_MSG}"
@@ -26,7 +27,7 @@ class PolynomialInterpreter
 		end
 
 		begin
-			rh_coeffs = read_coeffs(rhs)
+			rh_coeffs = read_coeffs(rhs.gsub(" ", ""))
 		rescue ArgumentError => e
 			if e.message == BLANK_POLYNOMIAL_MSG
 				raise ArgumentError, "RHS #{BLANK_POLYNOMIAL_MSG}"
@@ -37,6 +38,12 @@ class PolynomialInterpreter
 			end
 		end
 
+		if mod !~ /\d+/
+			raise ArgumentError, INVALID_MOD_MSG
+		elsif mod.to_i <= 0
+			raise ArgumentError, NON_POSITIVE_MOD_MSG
+		end
+
 		0.upto rh_coeffs.length-1 do |idx|
 			unless rh_coeffs[idx].nil?
 				lh_coeffs[idx] ||= 0
@@ -44,11 +51,11 @@ class PolynomialInterpreter
 			end
 		end
 
-		[lh_coeffs, mod.to_i]
+		[lh_coeffs, mod]
 	end
 
 	def self.read_coeffs(input_polynomial)
-		if(input_polynomial == "") then raise ArgumentError, BLANK_POLYNOMIAL_MSG end
+		if input_polynomial == "" then raise ArgumentError, BLANK_POLYNOMIAL_MSG end
 
 		last_var = nil
 		coeffs = Array.new

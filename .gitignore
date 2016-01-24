@@ -1,9 +1,5 @@
-<<<<<<< HEAD
 Gemfile
 Gemfile.lock
 tmp/
 todo
-=======
-todo
-*.exe
->>>>>>> upstream/master
+lib/congruence_solver/congruence_solver.so
