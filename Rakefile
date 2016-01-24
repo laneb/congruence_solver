@@ -29,6 +29,15 @@ Rake::ExtensionTask.new 'congruence_solver' do |ext|
 	ext.lib_dir = "lib/congruence_solver"
 end
 
+task :bench do
+	$LOAD_PATH << "#{Dir.pwd}/lib/"
+	Dir.foreach("bench") do |bm_file|
+		path = "bench/#{bm_file}"
+		if File.file? path
+			require_relative path
+		end
+	end
+end
 
 #executes compile task defined above, then cleans up the tmp directory that
 #rake-compiler leaves behind for some reason
