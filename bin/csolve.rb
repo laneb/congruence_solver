@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 require 'congruence_solver'
-require_relative "csolve/interpret"
+require "polynomial_interpreter"
 
 CONGRUENCE_FORMAT = "(lhs polynomial) = (rhs polynomial) mod (modulus)"
 CONGRUENCE_INVALID_MSG = "Congruence invalid: congruences must be of form:\n#{CONGRUENCE_FORMAT}"

@@ -9,19 +9,11 @@ Gem::Specification.new do |spec|
   spec.authors       = ["lane"]
   spec.email         = ["lane.barlow@gmail.com"]
 
-  spec.summary       = %q{A gem for solving polynomial congruences.}
-  spec.description   = %q{Provides a class (CongruenceSolver) for finding the modular zeros of a 
+  spec.summary       = "A gem for solving polynomial congruences."
+  spec.description   = "Provides a class (CongruenceSolver) for finding the modular zeros of a 
                           polynomial (given the coefficients and modulus) and a binary (csolve) to 
-                          to solve your congruences at the command line.}
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
-
-  # Prevent pushing this gem to RubyGems.org by setting 'allowed_push_host', or
-  # delete this section to allow pushing this gem to any host.
-  if spec.respond_to?(:metadata)
-    spec.metadata['allowed_push_host'] = "TODO: Set to 'http://mygemserver.com'"
-  else
-    raise "RubyGems 2.0 or newer is required to protect against public gem pushes."
-  end
+                          to solve your congruences at the command line."
+  spec.homepage      = "https://github.com/laneb/congruence_solver"
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
   spec.bindir        = "bin"
