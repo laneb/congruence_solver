@@ -1,5 +1,6 @@
 require "congruence_solver"
 require "benchmark"
+require_relative "./bench_tools.rb"
 
 
 SMALL_DEG_POLYNOMIAL_COEFFS = [1, -4, 4] 
@@ -7,7 +8,8 @@ LARGE_DEG_POLYNOMIAL_COEFFS = [-11, 0, 0, 3, 0, 0, 0, 0, 0, 10]
 SMALL_MOD = 49
 MED_MOD = 5104
 LARGE_MOD = 94122
-XTRA_LARGE_MOD = 214092
+XTRA_LARGE_MOD = 401249
+XTRA_LARGE_PRIME_MOD = 306893
 SMALL_FACTORED_LARGE_MOD = 510510
 
 
@@ -32,13 +34,13 @@ def bm_solve_congruence(coeffs, mod)
 		puts "Solving #{polynomial_to_s(coeffs)} = 0 mod #{mod}"
 
 		rb_bf_solutions = solve_congruence_brute_force(coeffs, mod).sort
-		c_bf_solutions = CongruenceSolver.brute_force(coeffs, mod).sort
+		#c_bf_solutions = CongruenceSolver.brute_force(coeffs, mod).sort
 		c_lifting_solutions = CongruenceSolver.lift(coeffs, mod).sort
 
-		unless rb_bf_solutions == c_bf_solutions and c_bf_solutions == c_lifting_solutions
+		unless rb_bf_solutions == c_lifting_solutions #and c_bf_solutions c_lift_solutions
 			puts "Solutions do not match:"
 			puts "Ruby/force solutions #{rb_bf_solutions.inspect}"
-			puts "C/force solutions #{c_bf_solutions}"
+			#puts "C/force solutions #{c_bf_solutions}"
 			puts "C/lifting solutions: #{c_lifting_solutions.inspect}"
 		end
 
@@ -48,11 +50,11 @@ def bm_solve_congruence(coeffs, mod)
 			bm.report("Ruby/force") do
 				solve_congruence_brute_force(coeffs, mod)
 			end
-
+=begin
 			bm.report("C/force") do
 				CongruenceSolver.brute_force(coeffs, mod)
 			end
-
+=end
 			bm.report("C/lifting") do
 				CongruenceSolver.lift(coeffs, mod)
 			end
@@ -63,7 +65,7 @@ end
 
 
 [SMALL_DEG_POLYNOMIAL_COEFFS, LARGE_DEG_POLYNOMIAL_COEFFS].each do |coeffs|
-	[SMALL_MOD, MED_MOD, LARGE_MOD, XTRA_LARGE_MOD, SMALL_FACTORED_LARGE_MOD].each do |mod|
+	[SMALL_MOD, MED_MOD, LARGE_MOD, XTRA_LARGE_MOD, XTRA_LARGE_PRIME_MOD, SMALL_FACTORED_LARGE_MOD].each do |mod|
 		bm_solve_congruence(coeffs, mod)
 	end
 end

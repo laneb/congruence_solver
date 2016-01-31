@@ -33,7 +33,7 @@ task :bench do
 	$LOAD_PATH << "#{Dir.pwd}/lib/"
 	Dir.foreach("bench") do |bm_file|
 		path = "bench/#{bm_file}"
-		if File.file? path
+		if File.file? path and path ~= "_bm.rb^"
 			require_relative path
 		end
 	end

@@ -15,7 +15,11 @@ Gem::Specification.new do |spec|
                           to solve your congruences at the command line."
   spec.homepage      = "https://github.com/laneb/congruence_solver"
 
-  spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
+  spec.files         = `git ls-files`.split("\n")
+  spec.files        += `git submodule --quiet foreach pwd`.split("\n").map do |abs_dir|
+                          rel_dir = abs_dir.gsub(Dir::pwd, "")
+                          Dir::entries(abs_dir).select {|f| File::file? f}.map {|fname| "#{rel_dir}\\#{fname}"}
+                        end.flatten
   spec.bindir        = "bin"
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]

@@ -2,8 +2,8 @@ class PolynomialInterpreter
 	module Errors
 		POLYNOMIAL_INVALID = ArgumentError.new "polynomial invalid"
 		CONGRUENCE_INVALID = ArgumentError.new "congruence invalid"
-		LHS_POLYNOMIAL_INVALID = ArgumentError.new "rhs polynomial invalid"
-		RHS_POLYNOMIAL_INVALID = ArgumentError.new "lhs polynomial invalid"
+		LHS_POLYNOMIAL_INVALID = ArgumentError.new "lhs polynomial invalid"
+		RHS_POLYNOMIAL_INVALID = ArgumentError.new "rhs polynomial invalid"
 		MOD_INVALID = ArgumentError.new "mod invalid"
 	end
 
@@ -76,7 +76,7 @@ class PolynomialInterpreter
 					exp = 0
 				else
 					unless last_var.nil? or last_var == match_data_exp[1]
-							raise Errors::INVALID_POLYNOMIAL
+							raise Errors::POLYNOMIAL_INVALID
 					end
 
 					last_var = match_data_exp[1]

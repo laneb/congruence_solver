@@ -2,6 +2,15 @@
 require 'congruence_solver'
 require "polynomial_interpreter"
 
+
+SOLVE_CONGRUENCE_BENCH_FILE = "../bench/solve_congruence_bm.rb"
+
+
+if ARGV.pop == "bench"
+	require_relative SOLVE_CONGRUENCE_BENCH_FILE
+	exit(0)
+end
+
 CONGRUENCE_FORMAT = "(lhs polynomial) = (rhs polynomial) mod (modulus)"
 CONGRUENCE_INVALID_MSG = "Congruence invalid: congruences must be of form:\n#{CONGRUENCE_FORMAT}"
 POLYNOMIAL_FORMAT = "ax^b+cx^d...\n(integer coefficients, positive integer exponents, order irrelevant)"
