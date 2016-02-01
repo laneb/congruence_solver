@@ -17,8 +17,13 @@ Gem::Specification.new do |spec|
 
   spec.files         = `git ls-files`.split("\n")
   spec.files        += `git submodule --quiet foreach pwd`.split("\n").map do |abs_dir|
-                          rel_dir = abs_dir.gsub(Dir::pwd, "")
-                          Dir::entries(abs_dir).select {|f| File::file? f}.map {|fname| "#{rel_dir}\\#{fname}"}
+                          abs_dir = abs_dir.gsub(/^c:/, "C:")
+                          root = Dir::pwd
+                          dir_in_proj = abs_dir.gsub(/^#{root}\/?/, "")
+                          Dir::chdir(abs_dir)
+                          files = `git ls-files`.split("\n")
+                          Dir::chdir(root)
+                          files.map {|fname| "#{dir_in_proj}/#{fname}"}
                         end.flatten
   spec.bindir        = "bin"
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
