@@ -18,12 +18,11 @@ Gem::Specification.new do |spec|
   spec.files         = `git ls-files`.split("\n")
   spec.files        += `git submodule --quiet foreach pwd`.split("\n").map do |abs_dir|
                           abs_dir = abs_dir.gsub(/^c:/, "C:")
-                          root = Dir::pwd
-                          dir_in_proj = abs_dir.gsub(/^#{root}\/?/, "")
-                          Dir::chdir(abs_dir)
-                          files = `git ls-files`.split("\n")
-                          Dir::chdir(root)
-                          files.map {|fname| "#{dir_in_proj}/#{fname}"}
+                          dir_in_proj = abs_dir.gsub(/^#{Dir.pwd}\/?/, "")
+                          Dir.chdir(abs_dir) do
+                            files = `git ls-files`.split("\n")
+                            files.map {|fname| "#{dir_in_proj}/#{fname}"}
+                          end
                         end.flatten
   spec.bindir        = "bin"
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
@@ -35,4 +34,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "rspec", "~> 2.4"
   spec.add_development_dependency "rake-compiler", "~>0.9"
+  spec.add_development_dependency "os", "~>0.9"
 end
