@@ -7,8 +7,8 @@ SOLVE_CONGRUENCE_BENCH_FILE = "../bench/solve_congruence_bm.rb"
 
 
 if ARGV.pop == "bench"
-	require_relative SOLVE_CONGRUENCE_BENCH_FILE
-	exit(0)
+  require_relative SOLVE_CONGRUENCE_BENCH_FILE
+  exit(0)
 end
 
 CONGRUENCE_FORMAT = "(lhs polynomial) = (rhs polynomial) mod (modulus)"
@@ -21,34 +21,34 @@ MOD_INVALID_MSG = "Mod invalid: modulus must be an integer greater than 2"
 puts "Congruence to solve:"
 
 begin
-	coeffs, mod = PolynomialInterpreter.read_congruence(STDIN.gets)
+  coeffs, mod = PolynomialInterpreter.read_congruence(STDIN.gets)
 rescue ArgumentError => e
-	if(e == PolynomialInterpreter::Errors::CONGRUENCE_INVALID)
-		STDERR.puts CONGRUENCE_INVALID_MSG
-		exit(1)
+  if(e == PolynomialInterpreter::Errors::CONGRUENCE_INVALID)
+    STDERR.puts CONGRUENCE_INVALID_MSG
+    exit(1)
 
-	elsif(e == PolynomialInterpreter::Errors::LHS_POLYNOMIAL_INVALID)
-		STDERR.puts LHS_INVALID_MSG
-		exit(1)
+  elsif(e == PolynomialInterpreter::Errors::LHS_POLYNOMIAL_INVALID)
+    STDERR.puts LHS_INVALID_MSG
+    exit(1)
 
-	elsif(e == PolynomialInterpreter::Errors::RHS_POLYNOMIAL_INVALID)
-		STDERR.puts RHS_INVALID_MSG
-		exit(1)
+  elsif(e == PolynomialInterpreter::Errors::RHS_POLYNOMIAL_INVALID)
+    STDERR.puts RHS_INVALID_MSG
+    exit(1)
 
-	elsif(e == PolynomialInterpreter::Errors::MOD_INVALID)
-		STDERR.puts MOD_INVALID_MSG
-		exit(1)
+  elsif(e == PolynomialInterpreter::Errors::MOD_INVALID)
+    STDERR.puts MOD_INVALID_MSG
+    exit(1)
 
-	else
-		raise e
-	end
+  else
+    raise e
+  end
 end
 
 solutions = CongruenceSolver.lift(coeffs, mod).sort
 
 if solutions.empty? 
-	puts "No solution."
+  puts "No solution."
 else
-	puts "Solutions:"
-	solutions.each_with_index {|sol, i| puts "(#{i}) #{sol}"}
+  puts "Solutions:"
+  solutions.each_with_index {|sol, i| puts "(#{i}) #{sol}"}
 end
