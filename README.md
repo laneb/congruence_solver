@@ -47,7 +47,7 @@ CongruenceSolver.solve_congruence(coeffs, mod).sort  #=> [1, 8, 15, 22, 26, 29, 
 
 ## Development
 
-After checking out the repo, run `bundle install` to install dependencies. Then, run `bundle exec rake spec` to run the tests, or `bundle exec rake bench` to run the benchmark. To build and install this gem onto your local machine, run `bundle exec rake install`.
+After checking out the repo, run `bundle install` to install dependencies and `bundle exec rake update_ext` to pull and compile the extension. Then, run `bundle exec rake spec` to run the tests, or `bundle exec rake bench` to run the benchmark. To build and install this gem onto your local machine, run `bundle exec rake install`.
 
 ## Contributing
 
