@@ -4,19 +4,24 @@ CongruenceSolver is a gem for solving polynomial congruences. Should you ever ne
 
 ## Installation
 
-Add this line to your application's Gemfile:
+With [RubyGems](https://rubygems.org/) on your machine, installation is as easy as 
+```shell
+gem install congruence_solver
+```
+
+You may also install via [bundler](http://bundler.io/), by adding this line to your application's Gemfile:
 
 ```ruby
 gem 'congruence_solver'
 ```
 
-And then execute:
+and executing
 
-    $ bundle
+```shell
+$ bundle
+```
 
-Or install it yourself as:
-
-    $ gem install congruence_solver
+in the project directory.
 
 ## Usage
 
