@@ -2,6 +2,12 @@
 
 CongruenceSolver is a gem for solving polynomial congruences. Should you ever need to solve polynomial congruences and have Ruby installed, this is the gem for you!
 
+## Polynomial Congruences
+
+Polynomial congruences are the central topic of most elementary number theory and abstract algebra curricula. A [congruence](https://en.wikipedia.org/wiki/Modular_equation) is an [equivalence relation](https://en.wikipedia.org/wiki/Equivalence_relation) arising from [modular arithmetic](https://en.wikipedia.org/wiki/Modular_arithmetic) (or "clock arithmetic"). For example, the idea "5 hours past 8 is 1" is expressed in the congruence <code>8 + 5 = 1 mod 12</code>. A polynomial congruence is simply a congruence involving a polynomial e.g. <code>x + 6 = 1 mod 15</code> or <code>x<sup>3</sup> - x<sup>2</sup> = 0 mod 39.</code>
+
+The problem of solving a system of congruences is to find all inputs satisfying the congruence, much like solving a system of equations. Elementary number theory develops tools like [Hensel Lifting](https://en.wikipedia.org/wiki/Hensel%27s_lemma#Hensel_Lifting) for solving polynomial congruences and the [Chinese Remainder Theorem](https://en.wikipedia.org/wiki/Chinese_remainder_theorem) systems of polynomial congruences.
+
 ## Installation
 
 With [RubyGems](https://rubygems.org/) on your machine, installation is as easy as 
@@ -25,7 +31,7 @@ in the project directory.
 
 ## Usage
 
-To solve a polynomial congruence at the command line, simply invoke `csolve` and then enter the congruence at the prompt.
+To solve a polynomial congruence at the command line, simply invoke `csolve` and then enter the congruence at the prompt. 
 
 ```
 csolve
