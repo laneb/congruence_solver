@@ -3,3 +3,4 @@ tmp/
 todo
 lib/congruence_solver/congruence_solver.so
 *.gem
+*.html
