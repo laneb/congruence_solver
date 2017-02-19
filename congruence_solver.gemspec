@@ -6,6 +6,7 @@ require 'congruence_solver/version'
 Gem::Specification.new do |spec|
   spec.name          = "congruence_solver"
   spec.version       = CongruenceSolver::VERSION
+  spec.license       = "Apache-2.0"
   spec.authors       = ["lane"]
   spec.email         = ["lane.barlow@gmail.com"]
 
@@ -16,14 +17,7 @@ Gem::Specification.new do |spec|
   spec.homepage      = "https://github.com/laneb/congruence_solver"
 
   spec.files         = `git ls-files`.split("\n")
-  spec.files        += `git submodule --quiet foreach pwd`.split("\n").map do |abs_dir|
-                          abs_dir = abs_dir.gsub(/^c:/, "C:")
-                          dir_in_proj = abs_dir.gsub(/^#{Dir.pwd}\/?/, "")
-                          Dir.chdir(abs_dir) do
-                            files = `git ls-files`.split("\n")
-                            files.map {|fname| "#{dir_in_proj}/#{fname}"}
-                          end
-                        end.flatten
+  spec.files        += `(ls ext/congruence_solver)`.split("\n").map { |fname| "ext/congruence_solver/" + fname}
   spec.bindir        = "bin"
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
