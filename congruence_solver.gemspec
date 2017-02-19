@@ -10,8 +10,8 @@ Gem::Specification.new do |spec|
   spec.email         = ["lane.barlow@gmail.com"]
 
   spec.summary       = "A gem for solving polynomial congruences."
-  spec.description   = "Provides a class (CongruenceSolver) for finding the modular zeros of a 
-                          polynomial (given the coefficients and modulus) and a binary (csolve) to 
+  spec.description   = "Provides a class (CongruenceSolver) for finding the modular zeros of a
+                          polynomial (given the coefficients and modulus) and a binary (csolve) to
                           to solve your congruences at the command line."
   spec.homepage      = "https://github.com/laneb/congruence_solver"
 
@@ -32,7 +32,7 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "bundler", "~> 1.10"
   spec.add_development_dependency "rake", "~> 10.0"
-  spec.add_development_dependency "rspec", "~> 2.4"
+  spec.add_development_dependency "rspec", "~> 3.0"
   spec.add_development_dependency "rake-compiler", "~>0.9"
   spec.add_development_dependency "os", "~>0.9"
 end

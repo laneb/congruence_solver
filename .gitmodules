@@ -1,4 +1,0 @@
-[submodule "ext/congruence_solver"]
-  path = ext/congruence_solver
-  url = https://github.com/laneb/congruence_solver_ext.git
-  branch = master

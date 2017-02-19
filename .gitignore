@@ -1,6 +1,9 @@
 Gemfile.lock
 tmp/
 todo
-lib/congruence_solver/congruence_solver.so
+lib/congruence_solver/congruence_solver.bundle
 *.gem
 *.html
+ext/congruence_solver/*
+!ext/congruence_solver/extconf.rb
+!ext/congruence_solver/congruence_solver.c
