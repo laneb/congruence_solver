@@ -1,6 +1,6 @@
 # CongruenceSolver
 
-CongruenceSolver is a gem for solving polynomial congruences. Should you ever need to solve polynomial congruences and have Ruby installed, this is the gem for you!
+CongruenceSolver is a gem for solving polynomial congruences. Should you ever need to solve polynomial congruences, this is the gem for you!
 
 ## Polynomial Congruences
 
@@ -8,28 +8,16 @@ Polynomial congruences are the central topic of most elementary number theory an
 
 ## Installation
 
-With [RubyGems](https://rubygems.org/) on your machine, installation is as easy as 
+With [RubyGems](https://rubygems.org/) on your machine, installation is as easy as
 ```shell
 gem install congruence_solver
 ```
 
-You may also install via [bundler](http://bundler.io/), by adding this line to your application's Gemfile:
-
-```ruby
-gem 'congruence_solver'
-```
-
-and executing
-
-```shell
-$ bundle
-```
-
-in the project directory.
+You may also include this gem in a project with [bundler](http://bundler.io/) or by adding it to your Gemfile.
 
 ## Usage
 
-To solve a polynomial congruence at the command line, simply invoke `csolve` and then enter the congruence at the prompt. 
+To solve a polynomial congruence at the command line, simply invoke `csolve` and then enter the congruence at the prompt.
 
 ```
 csolve
@@ -52,13 +40,12 @@ To use the CongruenceSolver in a Ruby program, use CongruenceSolve::solve_congru
 coeffs = [1, 2, 1, 1, 0, 3]
 mod = 49
 CongruenceSolver.solve_congruence(coeffs, mod).sort  #=> [1, 8, 15, 22, 26, 29, 36, 43]
-``` 
+```
 
 ## Development
 
-After checking out the repo, run `bundle install` to install dependencies and `bundle exec rake update_ext` to pull and compile the extension. Then, run `bundle exec rake spec` to run the tests, or `bundle exec rake bench` to run the benchmark. To build and install this gem onto your local machine, run `bundle exec rake install`.
+First, install bundler (`gem install bundler`). Then install this project's dependencies with `bundle install`. User `bundle exec rake update_ext` to pull and compile the extension. Use `bundle exec rake spec` to run the tests and `bundle exec rake bench` to run the benchmark. To build and install this gem on locally, run `bundle exec rake install`.
 
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/laneb/congruence_solver.
-
