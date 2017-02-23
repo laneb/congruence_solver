@@ -32,7 +32,10 @@ RSpec.describe CongruenceSolver do
       coeffs[500] = 1
       mod = 15
       expect(CongruenceSolver.lift(coeffs, mod).sort).to eq [1, 2, 4, 7, 8, 11, 13, 14]
-    end
 
+      coeffs = [1,-2,1]
+      mod=15
+      expect(CongruenceSolver.lift(coeffs,mod).sort).to eq [1]
+    end
   end
 end

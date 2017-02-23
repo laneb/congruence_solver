@@ -11,8 +11,8 @@ class PolynomialInterpreter
   def self.read_congruence(input_congruence)
     match_data = input_congruence.match(/^(.*)=(.*) +(?:mod +(.*)|\(mod +(.*)\))$/)
 
-    if match_data.nil? 
-      raise Errors::CONGRUENCE_INVALID 
+    if match_data.nil?
+      raise Errors::CONGRUENCE_INVALID
     end
 
     lhs = match_data[1]
@@ -21,22 +21,14 @@ class PolynomialInterpreter
 
     begin
       lh_coeffs = read_coeffs(lhs.gsub(" ", ""))
-    rescue ArgumentError => e
-      if(e == Errors::POLYNOMIAL_INVALID)
+    rescue ArgumentError
         raise Errors::LHS_POLYNOMIAL_INVALID
-      else
-        raise e
-      end
     end
 
     begin
       rh_coeffs = read_coeffs(rhs.gsub(" ", ""))
-    rescue ArgumentError => e
-      if e == Errors::POLYNOMIAL_INVALID
+    rescue ArgumentError
         raise Errors::RHS_POLYNOMIAL_INVALID
-      else
-        raise e
-      end
     end
 
     if mod !~ /\d+/ or mod.to_i < 2
@@ -61,16 +53,25 @@ class PolynomialInterpreter
     last_var = nil
     coeffs = Array.new
 
-    loop do
+    unless input_polynomial[0].match /[-+]/
+      input_polynomial = "+" + input_polynomial
+    end
+
+    while input_polynomial.length > 0 do
+      op = input_polynomial.slice!(0)
+      unless op =~ /[-+]/
+        raise Errors::POLYNOMIAL_INVALID
+      end
+
       input_polynomial.slice!(/^(\d+)\*?/)
       match_data_coe = Regexp.last_match
 
       input_polynomial.slice!(/^([a-zA-Z])(?:\^(\d+))?/)
       match_data_exp = Regexp.last_match
 
-      if match_data_coe.nil? and match_data_exp.nil? 
-        raise ArgumentError, INVALID_POLYNOMIAL_MSG 
-      else 
+      if match_data_coe.nil? and match_data_exp.nil?
+        raise Errors::POLYNOMIAL_INVALID
+      else
         if match_data_exp.nil?
           coe = match_data_coe[1].to_i
           exp = 0
@@ -86,7 +87,7 @@ class PolynomialInterpreter
           else
             coe = match_data_coe[1].to_i
           end
-            
+
           if match_data_exp[2].nil?
               exp = 1
           else
@@ -96,14 +97,10 @@ class PolynomialInterpreter
       end
 
       coeffs[exp] ||= 0
-      coeffs[exp] += coe.to_i
-
-      break if input_polynomial.length == 0
-
-      op = input_polynomial.slice!(0)
-
-      unless op.match /[-+]/
-        raise Errors::POLYNOMIAL_INVALID
+      if op == "-"
+        coeffs[exp] -= coe.to_i
+      else
+        coeffs[exp] += coe.to_i
       end
     end
 

@@ -85,5 +85,15 @@ RSpec.describe PolynomialInterpreter do
         expect( PolynomialInterpreter.read_congruence(congruence)).to eq [[-1, 0, 0, 3, 48, 0, 0, 5, -8, 5].reverse, 16]
       end
     end
+
+    context "when coefficient is negative" do
+      it "reads the coefficient as engative" do
+        congruence = "x^2 - 2x + 1 = 0 mod 15"
+        expect( PolynomialInterpreter.read_congruence(congruence) ).to eq [[1,-2,1], 15]
+
+        congruence = "-x^4 = 0 mod 3"
+        expect(PolynomialInterpreter.read_congruence congruence).to eq [[-1,0,0,0,0].reverse, 3]
+      end
+    end
   end
 end
