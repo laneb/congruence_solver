@@ -83,7 +83,7 @@ task :clean do
 end
 
 # build Ruby gem
-task :build do
+task :build => [:compile_ext] do
   gemspec = "congruence_solver.gemspec"
   verbose_sh_exec "gem build #{gemspec}"
 end
@@ -98,4 +98,10 @@ task :install => [:clean, :update_ext, :test, :build] do
   else
     verbose_sh_exec "gem install #{dot_gem_files.first}"
   end
+end
+
+task :publish => [:clean, :update_ext, :build] do
+  cmd = "gem push *.gem"
+  p cmd
+  system cmd
 end
