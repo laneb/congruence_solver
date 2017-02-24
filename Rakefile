@@ -78,7 +78,11 @@ task :update_ext => [:purge_ext, :download_ext, :compile_ext]
 
 # remove files generated or left behind by build
 task :clean do
-  files_to_rm = `find ext/congruence_solver/* -not -path "*.[ch]" -not -path *Makefile -not -path *extconf.rb`.split("\n")
+  ext_compiled_files = `find ext/congruence_solver/* -not -path "*.[ch]" -not -path *Makefile -not -path *extconf.rb`.split("\n")
+  files_to_rm = ext_compiled_files + %w[
+    *.gem
+    lib/congruence_solver/congruence_solver.*
+  ]
   verbose_rm_files files_to_rm
 end
 
