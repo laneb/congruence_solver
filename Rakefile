@@ -20,8 +20,7 @@ end
 
 # runs the csolve binary
 task :exe do
-  $LOAD_PATH << "#{Dir.pwd}/lib/"
-  require_relative "bin/csolve.rb"
+  system "bin/csolve"
 end
 
 #spec runs all RSpec examples
@@ -42,13 +41,7 @@ end
 
 # runs benchmarks
 task :bench do
-  $LOAD_PATH << "#{Dir.pwd}/lib/"
-  Dir.foreach("bench") do |bm_file|
-    path = "bench/#{bm_file}"
-    if File.file? path and path =~ "_bm.rb^"
-      require_relative path
-    end
-  end
+  system "csolve bench"
 end
 
 # download source files for the extension
