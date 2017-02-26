@@ -97,7 +97,7 @@ task :install => [:clean, :update_ext, :test, :build] do
   end
 end
 
-task :publish => [:clean, :update_ext, :build] do
+task :publish do
   cmd = "gem push *.gem"
   p cmd
   system cmd
