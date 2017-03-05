@@ -42,6 +42,10 @@ mod = 49
 CongruenceSolver.solve_congruence(coeffs, mod).sort  #=> [1, 8, 15, 22, 26, 29, 36, 43]
 ```
 
+## Limitations
+
+What are the limitations on the size of the numbers, you ask? CongruenceSolver can solve any congruence with a 16 bit degree that 32 bit coefficients and modulus. Of course, Ruby's Bignum can manage arbitrarily large integers without overflow, but the extension that powers has limitations to maintain speed and simplicity.
+
 ## Development
 
 First, install bundler (`gem install bundler`). Then install this project's dependencies with `bundle install`. Use `bundle exec rake update_ext` to pull and compile the extension. Use `bundle exec rake spec` to run the tests and `bundle exec rake bench` to run the benchmark. To build and install this gem locally, run `bundle exec rake install`.
