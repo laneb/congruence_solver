@@ -5,7 +5,7 @@ require "os"
 
 def verbose_sh_exec(cmd)
   puts cmd
-  `#{cmd}`
+  system cmd
 end
 
 def verbose_rm_files(files_to_rm_ary)
@@ -20,7 +20,7 @@ end
 
 # runs the csolve binary
 task :exe do
-  system "bin/csolve"
+  verbose_sh_exec "bin/csolve"
 end
 
 #spec runs all RSpec examples
@@ -41,7 +41,7 @@ end
 
 # runs benchmarks
 task :bench do
-  system "csolve bench"
+  verbose_sh_exec "csolve bench"
 end
 
 # download source files for the extension
@@ -100,5 +100,5 @@ end
 task :publish do
   cmd = "gem push *.gem"
   p cmd
-  system cmd
+  verbose_sh_exec cmd
 end
