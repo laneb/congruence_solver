@@ -2,70 +2,20 @@ require "congruence_solver"
 require "benchmark"
 require_relative "./bench_tools.rb"
 
+COEFFS = [-11, 0, 1, 3, 0, 5, 4, 180, 0, 10]
+COMPOSITE_MOD = 4837012493
+PRIME_MOD = 57081391
 
-SMALL_DEG_POLYNOMIAL_COEFFS = [1, -4, 4] 
-LARGE_DEG_POLYNOMIAL_COEFFS = [-11, 0, 0, 3, 0, 0, 0, 0, 0, 10]
-SMALL_MOD = 49
-MED_MOD = 5104
-LARGE_MOD = 94122
-XTRA_LARGE_MOD = 401249
-XTRA_LARGE_PRIME_MOD = 306893
-SMALL_FACTORED_LARGE_MOD = 510510
-
-
-def solve_congruence_brute_force(coeffs, mod)
-  solutions = []
-
-  0.upto(mod) do |x|
-    sum = 0
-
-    coeffs.each_with_index do |coe, exp|
-      sum = (sum + coe*x**exp) % mod
-    end
-
-    if sum == 0 then solutions << x end
-  end
-
-  solutions
-end
-
-
-def bm_solve_congruence(coeffs, mod) 
+def bm_solve_congruence(coeffs, mod)
     puts "Solving #{polynomial_to_s(coeffs)} = 0 mod #{mod}"
-
-    rb_bf_solutions = solve_congruence_brute_force(coeffs, mod).sort
-    #c_bf_solutions = CongruenceSolver.brute_force(coeffs, mod).sort
-    c_lifting_solutions = CongruenceSolver.lift(coeffs, mod).sort
-
-    unless rb_bf_solutions == c_lifting_solutions #and c_bf_solutions c_lift_solutions
-      puts "Solutions do not match:"
-      puts "Ruby/force solutions #{rb_bf_solutions.inspect}"
-      #puts "C/force solutions #{c_bf_solutions}"
-      puts "C/lifting solutions: #{c_lifting_solutions.inspect}"
-    end
-
-    puts "Time measurements:"
-
+    puts "Measurements:"
     Benchmark.bmbm do |bm|
-      bm.report("Ruby/force") do
-        solve_congruence_brute_force(coeffs, mod)
-      end
-=begin
-      bm.report("C/force") do
-        CongruenceSolver.brute_force(coeffs, mod)
-      end
-=end
       bm.report("C/lifting") do
         CongruenceSolver.lift(coeffs, mod)
       end
     end
-
     print "\n\n"
 end
 
-
-[SMALL_DEG_POLYNOMIAL_COEFFS, LARGE_DEG_POLYNOMIAL_COEFFS].each do |coeffs|
-  [SMALL_MOD, MED_MOD, LARGE_MOD, XTRA_LARGE_MOD, XTRA_LARGE_PRIME_MOD, SMALL_FACTORED_LARGE_MOD].each do |mod|
-    bm_solve_congruence(coeffs, mod)
-  end
-end
+bm_solve_congruence(COEFFS,COMPOSITE_MOD)
+bm_solve_congruence(COEFFS,PRIME_MOD)
