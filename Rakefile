@@ -37,6 +37,7 @@ task :test => [:ctest, :spec]
 # workflow
 Rake::ExtensionTask.new 'congruence_solver' do |ext|
   ext.lib_dir = "lib/congruence_solver"
+  ext.config_options << "--openmp=-fopenmp"
 end
 
 # runs benchmarks
