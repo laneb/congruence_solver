@@ -93,7 +93,7 @@ def gemfile
   elsif dot_gem_files.length > 1
     STDERR.puts "Error: conflicting .gem files in directory. Exiting."
   else
-    dot_gem_files.head
+    dot_gem_files.first
   end
 end
 
