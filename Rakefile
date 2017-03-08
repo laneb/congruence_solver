@@ -27,7 +27,7 @@ end
 RSpec::Core::RakeTask.new :spec
 
 # run the tests shipped the extension
-task :ctest => [:compile_ext] do
+task :ctest do
   verbose_sh_exec "(cd ext/congruence_solver && make test)"
 end
 
@@ -81,25 +81,27 @@ task :clean do
 end
 
 # build Ruby gem
-task :build => [:compile_ext] do
+task :build do
   gemspec = "congruence_solver.gemspec"
   verbose_sh_exec "gem build #{gemspec}"
 end
 
-# install gem locally
-task :install => [:clean, :update_ext, :test, :build] do
+def gemfile
   dot_gem_files = Dir.entries(Dir.pwd).select {|f| f =~ /congruence_solver\-.*\.gem/}
   if dot_gem_files.empty?
     STDERR.puts "Failed to build gem. Exiting."
   elsif dot_gem_files.length > 1
     STDERR.puts "Error: conflicting .gem files in directory. Exiting."
   else
-    verbose_sh_exec "gem install #{dot_gem_files.first}"
+    dot_gem_files.head
   end
 end
 
-task :publish do
-  cmd = "gem push *.gem"
-  p cmd
-  verbose_sh_exec cmd
+# install gem locally
+task :install => [:compile_ext, :build] do
+  verbose_sh_exec "gem install #{gemfile}"
+end
+
+task :publish => [:clean, :compile_ext, :test, :build] do
+  verbose_sh_exec "gem push #{gemfile}"
 end
