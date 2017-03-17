@@ -5,10 +5,14 @@ require "polynomial_interpreter"
 
 SOLVE_CONGRUENCE_BENCH_FILE = "../bench/solve_congruence_bm.rb"
 
-
-if ARGV.pop == "bench"
+if ARGV[0] == "bench"
   require_relative SOLVE_CONGRUENCE_BENCH_FILE
   exit(0)
+elsif ARGV[0] == "-c"
+  congruence = ARGV[1]
+else
+  puts "Congruence to solve:"
+  congruence = STDIN.gets
 end
 
 CONGRUENCE_FORMAT = "(lhs polynomial) = (rhs polynomial) mod (modulus)"
@@ -18,10 +22,9 @@ LHS_INVALID_MSG = "Left hand polynomial invalid: polynomials must be of form: #{
 RHS_INVALID_MSG = "Right hand polynomial invalid: polynomials must be of form: #{POLYNOMIAL_FORMAT}"
 MOD_INVALID_MSG = "Mod invalid: modulus must be an integer greater than 2"
 
-puts "Congruence to solve:"
 
 begin
-  coeffs, mod = PolynomialInterpreter.read_congruence(STDIN.gets)
+  coeffs, mod = PolynomialInterpreter.read_congruence(congruence)
 rescue ArgumentError => e
   if(e == PolynomialInterpreter::Errors::CONGRUENCE_INVALID)
     STDERR.puts CONGRUENCE_INVALID_MSG
@@ -46,7 +49,7 @@ end
 
 solutions = CongruenceSolver.lift(coeffs, mod).sort
 
-if solutions.empty? 
+if solutions.empty?
   puts "No solution."
 else
   puts "Solutions:"
