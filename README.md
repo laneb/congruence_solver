@@ -8,12 +8,28 @@ Polynomial congruences are the central topic of most elementary number theory an
 
 ## Installation
 
-With [RubyGems](https://rubygems.org/) on your machine, installation is as easy as
+With [RubyGems](https://rubygems.org/) on your machine, the basic installation is as easy as
 ```shell
 gem install congruence_solver
 ```
 
-You may also include this gem in a project with [bundler](http://bundler.io/) or by adding it to your Gemfile.
+However, if you would like to use this gem *with OpenMP support*, you will need to make sure that the Ruby binary in your path was compiled with a compiler that supports OpenMP - gcc 4.2 or later will work. Determine the compiler option needed to add OpenMP support - for gcc, this is -fopenmp. To install use  
+```shell
+gem install congruence_solver --  --openmp=_MY_OPTION_
+```
+For gcc, this would be
+```shell
+gem install congruence_solver -- --openmp=-fopenmp
+```
+
+To include this gem in a project via bundler, add congruence_solver to your Gemfile and run
+```
+bundle install
+```
+To include OpenMP support when installing via bundler, before running `bundle install` run
+```
+bundle config build.congruence_solver --openmp=_MY_OPTION_
+```
 
 ## Usage
 
@@ -44,11 +60,11 @@ CongruenceSolver.solve_congruence(coeffs, mod).sort  #=> [1, 8, 15, 22, 26, 29, 
 
 ## Limitations
 
-What are the limitations on the size of the numbers, you ask? CongruenceSolver can solve any congruence with a 16 bit degree that 32 bit coefficients and modulus. Of course, Ruby's Bignum can manage arbitrarily large integers without overflow, but the extension that powers has limitations to maintain speed and simplicity.
+What are the limitations on the size of the numbers, you ask? CongruenceSolver can solve any congruence with a 16 bit degree that 32 bit coefficients and modulus. Of course, Ruby's Bignum can manage arbitrarily large integers without overflow, but the extension that powers CongruenceSolver has limitations to maintain speed and simplicity.
 
 ## Development
 
-First, install bundler (`gem install bundler`). Then install this project's dependencies with `bundle install`. Use `bundle exec rake update_ext` to pull and compile the extension. Use `bundle exec rake spec` to run the tests and `bundle exec rake bench` to run the benchmark. To build and install this gem locally, run `bundle exec rake install`.
+First, install bundler (`gem install bundler`). Then install this project's dependencies with `bundle install`. Use `bundle exec rake update_ext` to pull and compile the extension. Use `bundle exec rake spec` to run the tests and `bundle exec rake bench` to run the benchmark.
 
 ## Contributing
 
