@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+require 'readline'
 require 'congruence_solver'
 require "polynomial_interpreter"
 
@@ -11,8 +12,8 @@ if ARGV[0] == "bench"
 elsif ARGV[0] == "-c"
   congruence = ARGV[1]
 else
-  puts "Congruence to solve:"
-  congruence = STDIN.gets
+  puts "Congruence to solve: "
+  congruence = Readline.readline("",false)
 end
 
 CONGRUENCE_FORMAT = "(lhs polynomial) = (rhs polynomial) mod (modulus)"
